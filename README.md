@@ -1,6 +1,38 @@
 # django_todo
+Django-Todo App
+A web app built on the Django framework and MySQL database to store todo lists.
 
-Containerizing-Django-TODO-Web-App-in-EKS
+PRs Welcome
+
+Requirements
+Python (3.4+)
+Django
+mysql-server
+Usage
+Install pip3
+sudo apt-get install python3-pip
+
+Install django
+sudo pip3 install django
+
+Install mysql-server
+sudo apt-get install mysql-server
+
+Change your mysql-server password in settings.py
+
+Install python3 client for MySQL
+sudo apt-get install python3-mysqldb
+
+Start mysql in terminal to CREATE a database named todolist
+sudo mysql -u root -p
+CREATE DATABASE todolist;
+Create table inside the database
+python3 manage.py migrate
+
+Run the app using the following command:
+python3 manage.py runserver
+
+Navigate to localhost://8000 on your favourite browser to see the app in action.
 
 #EKS-Fargate-Cluster-and-Managed-Node-Group-Using-Terraform
 
