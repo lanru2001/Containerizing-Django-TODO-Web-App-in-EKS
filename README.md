@@ -56,3 +56,5 @@ Create credentials for connecting to kubernetes in Jenkins server and copy all t
 Set a Clusterrole as cluster-admin in your eks cluster : kubectl create clusterrolebinding cluster-system-anonymous --cluster-role=cluster-admin --user=system:anonymous
 
 How does Amazon EKS work?
+
+![image](https://user-images.githubusercontent.com/59709429/137639043-72c23a66-c799-4e23-bf23-eb64754d401e.png)
