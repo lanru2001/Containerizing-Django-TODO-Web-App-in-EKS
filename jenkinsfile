@@ -1,0 +1,68 @@
+currentBuild.displayName = "react-nodejs-app-#" + currentBuild.number 
+
+pipeline {
+    agent any
+    environment {
+       
+       IMAGE="${PROJECT}:${VERSION}"
+       PROJECT="node-test"
+       VERSION="latest"
+       REPO="873079457075.dkr.ecr.us-east-2.amazonaws.com/node-test"
+    }
+   
+    stages {
+        
+        stage('Cloning Git') {
+            steps {
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '', url: 'https://github.com/lanru2001/EKS-Fargate-Cluster-and-Managed-Node-Group-Using-Terraform.git']]])     
+            }
+        }
+  
+        stage('Building image') {
+            steps {
+                script {
+                    
+                    sh  "docker build -t '${IMAGE}'  /var/lib/jenkins/workspace/Build_docker_image/backend" 
+                    
+                }
+            }    
+        }
+        
+        stage('Push to ECR') {
+            steps {
+                script {
+                    sh "aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 873079457075.dkr.ecr.us-east-2.amazonaws.com"
+                    
+                    sh "docker tag $PROJECT:$VERSION $REPO:latest"
+                    
+                    sh "docker push $REPO:$VERSION"
+                } 
+            }
+        }
+        
+        #Add approval stage for production deployment 
+        stage('Approval') {
+         
+            steps {
+                script {
+                    def deploymentDelay = input id: 'Deploy', message: 'Deploy to production?’, submitter: ‘azeez,admin', parameters: [choice(choices: ['0', '1', '2', '3', '4', '5', '6','7','8','9','10'], description: 'Hours to delay deployment?', name: 'deploymentDelay')]
+                    sleep time: deploymentDelay.toInteger(), unit: 'HOURS'
+                }
+            }
+        }  
+        
+        stage('Deployment') {
+            steps {
+                script {
+                  container('helm') {
+                      # Init authentication and config for your kubernetes cluster
+                      sh("helm init --client-only --skip-refresh")
+                      sh("helm upgrade --install --wait myApp./helm --namespace prod")
+                    }
+                }
+            }
+        }                  
+        
+    }    
+    
+}
