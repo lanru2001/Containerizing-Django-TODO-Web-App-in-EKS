@@ -51,7 +51,7 @@ pipeline {
             }
         }  
         
-        stage('Deployment') {
+        stage('Deploy to k8s') {
             steps {
                 script {
                   container('helm') {
