@@ -30,19 +30,18 @@ Download and extract the latest release of eksctl with the following command:
 curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
 move the extracted binary to /usr/local/bin
 sudo mv /tmp/eksctl /usr/local/bin
-```bash
-Test that your installation was successful with the following command:
-```bash
+
+#Test that your installation was successful with the following command:
 eksctl version
-```bash
-Connect to my cluster:
-```bash
+
+#Connect to my cluster:
 eksctl get cluster
 eksctl get nodegroup cluster=eks-cluster
 kubectl get ns
 kubectl get svc
 kubectl get pods
 kubectl get deployments
+
 ```bash
 Add the following plugins to Jenkins server:
 
