@@ -44,16 +44,13 @@ kubectl get deployments
 
 ```bash
 Add the following plugins to Jenkins server:
-
-ECR
-Docker pipeline
-Docker plugin
-Kubernetes continuous deploy plugin
-Create credentials for connecting to ECR on Jenkins server using AWS security credentials (Access key and secret key ID )
-
-Create credentials for connecting to kubernetes in Jenkins server and copy all the content of ( sudo cat ~/.kube/config ) from the EKS Cluster inside it as enter directly, ID: k8s , Description: k8s .
-
-Set a Clusterrole as cluster-admin in your eks cluster : kubectl create clusterrolebinding cluster-system-anonymous --cluster-role=cluster-admin --user=system:anonymous
+- ECR
+- Docker pipeline
+- Docker plugin
+- Kubernetes continuous deploy plugin
+- Create credentials for connecting to ECR on Jenkins server using AWS security credentials (Access key and secret key ID )
+- Create credentials for connecting to kubernetes in Jenkins server and copy all the content of ( sudo cat ~/.kube/config ) from the EKS Cluster inside it as enter directly, ID: k8s , Description: k8s .
+- Set a Clusterrole as cluster-admin in your eks cluster : kubectl create clusterrolebinding cluster-system-anonymous --cluster-role=cluster-admin --user=system:anonymous
 
 How does Amazon EKS work?
 
